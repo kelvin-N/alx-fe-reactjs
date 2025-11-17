@@ -1,13 +1,9 @@
-import React from "react";
-
-const MainContent = () => {
+function MainContent() {
   return (
-    <main style={{ padding: "20px", backgroundColor: "#f0f0f0", textAlign: "center" }}>
-      <p style={{ fontSize: "18px", color: "#333" }}>
-        I love to visit New York, Paris, and Tokyo.
-      </p>
-    </main>
+    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif', lineHeight: '1.6' }}>
+      <p>I love to visit New York, Paris, and Tokyo.</p>
+    </div>
   );
-};
+}
 
 export default MainContent;
