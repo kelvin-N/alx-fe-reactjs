@@ -1,4 +1,4 @@
-import { useRecipeStore } from ".\recipeStore";
+import { useRecipeStore } from "./recipeStore"; // ✅ fixed path
 
 function RecipeList() {
   const recipes = useRecipeStore((state) => state.recipes);
@@ -9,10 +9,10 @@ function RecipeList() {
 
       {recipes.length === 0 && <p>No recipes yet.</p>}
 
-      {recipes.map((recipe) => (
-        <div key={recipe.id}>
+      {recipes.map((recipe, index) => (
+        <div key={index}>
           <h3>{recipe.title}</h3>
-          <p>{recipe.description}</p>
+          <p>{recipe.ingredients}</p>
         </div>
       ))}
     </div>
