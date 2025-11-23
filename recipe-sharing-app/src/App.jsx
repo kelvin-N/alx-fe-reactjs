@@ -1,15 +1,16 @@
-// src/App.jsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import RecipeList from "./components/RecipeList";
 import RecipeDetails from "./components/RecipeDetails";
 import AddRecipeForm from "./components/AddRecipeForm";
+import SearchBar from "./components/SearchBar";
 
 function App() {
   return (
     <Router>
-      <div style={{ maxWidth: 800, margin: "0 auto", padding: 16 }}>
-        <h1 style={{ textAlign: "center" }}>Recipe Sharing App</h1>
+      <div>
+        <h1>Recipe Sharing App</h1>
 
+        <SearchBar />
         <AddRecipeForm />
 
         <Routes>
