@@ -1,41 +1,43 @@
 import { useState } from "react";
-import { useRecipeStore } from "./recipeStore"; // ✅ use forward slash
+import { useRecipeStore } from "../store/recipeStore";
 
-function AddRecipeForm() {
+const AddRecipeForm = () => {
   const addRecipe = useRecipeStore((state) => state.addRecipe);
 
   const [title, setTitle] = useState("");
-  const [ingredients, setIngredients] = useState("");
+  const [description, setDescription] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-    if (!title.trim() || !ingredients.trim()) return;
-
-    addRecipe({ title, ingredients });
+    addRecipe({
+      id: Date.now(),
+      title,
+      description,
+    });
 
     setTitle("");
-    setIngredients("");
+    setDescription("");
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Add Recipe</h2>
       <input
         type="text"
-        placeholder="Recipe title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+        placeholder="Title"
       />
+
       <textarea
-        placeholder="Ingredients"
-        value={ingredients}
-        onChange={(e) => setIngredients(e.target.value)}
-      ></textarea>
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        placeholder="Description"
+      />
 
       <button type="submit">Add Recipe</button>
     </form>
   );
-}
+};
 
 export default AddRecipeForm;
