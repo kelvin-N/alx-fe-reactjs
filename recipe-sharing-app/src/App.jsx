@@ -7,17 +7,13 @@ import SearchBar from "./components/SearchBar";
 function App() {
   return (
     <Router>
-      <div>
-        <h1>Recipe Sharing App</h1>
+      <SearchBar />
+      <AddRecipeForm />
 
-        <SearchBar />
-        <AddRecipeForm />
-
-        <Routes>
-          <Route path="/" element={<RecipeList />} />
-          <Route path="/recipe/:id" element={<RecipeDetails />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<RecipeList />} />
+        <Route path="/recipe/:id" element={<RecipeDetails />} />
+      </Routes>
     </Router>
   );
 }
