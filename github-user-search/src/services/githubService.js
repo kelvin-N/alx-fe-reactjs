@@ -2,10 +2,10 @@ const BASE_URL = "https://api.github.com";
 
 /**
  * Search GitHub users with advanced filters
- * @param {string} username - GitHub username to search
- * @param {string} location - User location filter
- * @param {number} minRepos - Minimum public repositories
- * @returns {Promise<Object>} - GitHub API search results
+ * @param {string} username - GitHub username
+ * @param {string} location - User location
+ * @param {number} minRepos - Minimum public repos
+ * @returns {Promise<Object>} - GitHub search results
  */
 export const searchGitHubUsers = async (username, location, minRepos) => {
   let query = "";

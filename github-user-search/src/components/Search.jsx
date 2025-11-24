@@ -1,6 +1,6 @@
 import { useState } from "react";
 import UserCard from "./UserCard";
-import { searchGitHubUsers } from "../services/githubApi";
+import { searchGitHubUsers } from "../services/githubService";
 
 const Search = () => {
   const [username, setUsername] = useState("");
@@ -21,7 +21,7 @@ const Search = () => {
         setError("No users found with the specified criteria.");
         setUsers([]);
       } else {
-        setUsers(data.items); // <-- array of users
+        setUsers(data.items); // array of results
       }
     } catch (err) {
       setError("Something went wrong. Please try again.");
@@ -82,7 +82,7 @@ const Search = () => {
       {loading && <p className="text-center mt-4 text-gray-700">Loading...</p>}
       {error && <p className="text-red-500 text-center mt-4">{error}</p>}
 
-      {/* Map over results */}
+      {/* Display search results */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
         {users.map((user) => (
           <UserCard key={user.id} user={user} />
