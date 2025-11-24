@@ -1,5 +1,4 @@
 import { useState } from "react";
-import UserCard from "./UserCard";
 import { searchGitHubUsers } from "../services/githubService";
 
 const Search = () => {
@@ -21,7 +20,7 @@ const Search = () => {
         setError("No users found with the specified criteria.");
         setUsers([]);
       } else {
-        setUsers(data.items); // array of results
+        setUsers(data.items); // array of users
       }
     } catch (err) {
       setError("Something went wrong. Please try again.");
@@ -33,6 +32,7 @@ const Search = () => {
 
   return (
     <div className="w-full">
+      {/* Search Form */}
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-md rounded px-6 py-4 flex flex-col md:flex-row gap-4 items-end"
@@ -79,17 +79,22 @@ const Search = () => {
         </button>
       </form>
 
+      {/* Loading / Error */}
       {loading && <p className="text-center mt-4 text-gray-700">Loading...</p>}
       {error && <p className="text-red-500 text-center mt-4">{error}</p>}
 
-      {/* Display search results */}
+      {/* Enhanced results display */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
         {users.map((user) => (
-          <UserCard key={user.id} user={user} />
-        ))}
-      </div>
-    </div>
-  );
-};
-
-export default Search;
+          <div
+            key={user.id}
+            className="bg-white shadow rounded p-4 flex flex-col items-center text-center"
+          >
+            <img
+              src={user.avatar_url}
+              alt={user.login}
+              className="w-24 h-24 rounded-full mb-4"
+            />
+            <h2 className="text-lg font-semibold">{user.login}</h2>
+            {user.location && <p className="text-sm text-gray-500">{user.location}</p>}
+            {/* GitHub profile link inclu*
