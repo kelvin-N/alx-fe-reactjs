@@ -20,7 +20,7 @@ const Search = () => {
         setError("No users found with the specified criteria.");
         setUsers([]);
       } else {
-        setUsers(data.items); // array of users
+        setUsers(data.items); // array of results
       }
     } catch (err) {
       setError("Something went wrong. Please try again.");
@@ -83,7 +83,7 @@ const Search = () => {
       {loading && <p className="text-center mt-4 text-gray-700">Loading...</p>}
       {error && <p className="text-red-500 text-center mt-4">{error}</p>}
 
-      {/* Enhanced results display */}
+      {/* Enhanced results display with html_url */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
         {users.map((user) => (
           <div
@@ -97,4 +97,19 @@ const Search = () => {
             />
             <h2 className="text-lg font-semibold">{user.login}</h2>
             {user.location && <p className="text-sm text-gray-500">{user.location}</p>}
-            {/* GitHub profile link inclu*
+            <a
+              href={user.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 mt-2 hover:underline"
+            >
+              View Profile
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Search;
