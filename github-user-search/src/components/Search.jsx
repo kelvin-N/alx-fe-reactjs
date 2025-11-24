@@ -9,25 +9,28 @@ const Search = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-
+  // ✅ Function for API request handling
+  const fetchUserData = async (username, location, minRepos) => {
     try {
       const data = await searchGitHubUsers(username, location, minRepos);
       if (data.total_count === 0) {
         setError("No users found with the specified criteria.");
         setUsers([]);
       } else {
-        setUsers(data.items); // array of results
+        setUsers(data.items);
       }
     } catch (err) {
       setError("Something went wrong. Please try again.");
       setUsers([]);
-    } finally {
-      setLoading(false);
     }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    await fetchUserData(username, location, minRepos);
+    setLoading(false);
   };
 
   return (
@@ -83,7 +86,7 @@ const Search = () => {
       {loading && <p className="text-center mt-4 text-gray-700">Loading...</p>}
       {error && <p className="text-red-500 text-center mt-4">{error}</p>}
 
-      {/* Enhanced results display with html_url */}
+      {/* Results display */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
         {users.map((user) => (
           <div
