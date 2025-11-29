@@ -14,15 +14,21 @@ export const useRecipeStore = create((set) => ({
   setRecommendations: (newRecs) => set(() => ({ recommendations: newRecs })),
 
   addRecipe: (recipe) =>
+    set((state) => ({ recipes: [...state.recipes, recipe] })),
+
+  updateRecipe: (id, updatedRecipe) =>
     set((state) => ({
-      recipes: [...state.recipes, recipe],
+      recipes: state.recipes.map((r) => (r.id === id ? updatedRecipe : r)),
     })),
+
+  deleteRecipe: (id) =>
+    set((state) => ({
+      recipes: state.recipes.filter((r) => r.id !== id),
+    })),
+
   addFavorite: (recipe) =>
-    set((state) => ({
-      favorites: [...state.favorites, recipe],
-    })),
+    set((state) => ({ favorites: [...state.favorites, recipe] })),
+
   addRecommendation: (recipe) =>
-    set((state) => ({
-      recommendations: [...state.recommendations, recipe],
-    })),
+    set((state) => ({ recommendations: [...state.recommendations, recipe] })),
 }));
