@@ -1,22 +1,29 @@
 // src/components/RecipeList.jsx
 
+import { Link } from "react-router-dom";
 import { useRecipeStore } from "./recipeStore";
 
 const RecipeList = () => {
   const recipes = useRecipeStore((state) => state.recipes);
+  const searchTerm = useRecipeStore((state) => state.searchTerm);
+
+  const filtered = recipes.filter((r) =>
+    r.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div>
-      <h2>Recipes</h2>
+      <h2>Recipe List</h2>
 
-      {recipes.length === 0 ? (
-        <p>No recipes yet.</p>
+      {filtered.length === 0 ? (
+        <p>No recipes found.</p>
       ) : (
         <ul>
-          {recipes.map((recipe) => (
+          {filtered.map((recipe) => (
             <li key={recipe.id}>
-              <h3>{recipe.title}</h3>
-              <p>{recipe.ingredients}</p>
+              <Link to={`/recipe/${recipe.id}`}>
+                <h3>{recipe.title}</h3>
+              </Link>
             </li>
           ))}
         </ul>

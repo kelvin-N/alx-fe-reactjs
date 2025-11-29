@@ -1,6 +1,6 @@
-import { useRecipeStore } from "../store/recipeStore";
+import { useRecipeStore } from "./recipeStore";
 
-export default function SearchBar() {
+const SearchBar = () => {
   const searchTerm = useRecipeStore((state) => state.searchTerm);
   const setSearchTerm = useRecipeStore((state) => state.setSearchTerm);
 
@@ -10,13 +10,9 @@ export default function SearchBar() {
       placeholder="Search recipes..."
       value={searchTerm}
       onChange={(e) => setSearchTerm(e.target.value)}
-      style={{
-        padding: "10px",
-        width: "100%",
-        marginBottom: "20px",
-        borderRadius: "5px",
-        border: "1px solid #ccc",
-      }}
+      style={{ marginBottom: "20px", padding: "8px", width: "100%" }}
     />
   );
-}
+};
+
+export default SearchBar;

@@ -1,25 +1,26 @@
 // src/App.jsx
 
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AddRecipeForm from "./components/AddRecipeForm";
 import RecipeList from "./components/RecipeList";
-import { useRecipeStore } from "./components/recipeStore";
+import RecipeDetails from "./components/RecipeDetails";
+import SearchBar from "./components/SearchBar";
 
 const App = () => {
-  // Initialize the recipe store (ensures components share same store instance)
-  useRecipeStore();
-
   return (
-    <div style={{ padding: "20px", maxWidth: "600px", margin: "0 auto" }}>
-      <h1>Recipe Sharing App</h1>
+    <BrowserRouter>
+      <div style={{ padding: "20px", maxWidth: "600px", margin: "0 auto" }}>
+        <h1>Recipe Sharing App</h1>
 
-      {/* Form to add new recipes */}
-      <AddRecipeForm />
+        <SearchBar />
 
-      <hr style={{ margin: "20px 0" }} />
-
-      {/* Display list of recipes */}
-      <RecipeList />
-    </div>
+        <Routes>
+          <Route path="/" element={<RecipeList />} />
+          <Route path="/add" element={<AddRecipeForm />} />
+          <Route path="/recipe/:id" element={<RecipeDetails />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 };
 
