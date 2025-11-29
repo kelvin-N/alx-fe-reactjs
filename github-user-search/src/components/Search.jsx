@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { searchGitHubUsers } from "../services/githubService";
+import { searchGitHubUsers } from "../services/githubService.js";
 
 const Search = () => {
   const [username, setUsername] = useState("");
@@ -9,7 +9,7 @@ const Search = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // ✅ Function for API request handling
+  // API request function
   const fetchUserData = async (username, location, minRepos) => {
     try {
       const data = await searchGitHubUsers(username, location, minRepos);
@@ -35,7 +35,6 @@ const Search = () => {
 
   return (
     <div className="w-full">
-      {/* Search Form */}
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-md rounded px-6 py-4 flex flex-col md:flex-row gap-4 items-end"
@@ -82,11 +81,9 @@ const Search = () => {
         </button>
       </form>
 
-      {/* Loading / Error */}
       {loading && <p className="text-center mt-4 text-gray-700">Loading...</p>}
       {error && <p className="text-red-500 text-center mt-4">{error}</p>}
 
-      {/* Results display */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
         {users.map((user) => (
           <div
