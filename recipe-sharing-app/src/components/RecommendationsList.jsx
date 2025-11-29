@@ -1,28 +1,25 @@
+// src/components/RecommendationList.jsx
+
 import { useRecipeStore } from "./recipeStore";
 
-const RecommendationsList = () => {
+const RecommendationList = () => {
   const recommendations = useRecipeStore((state) => state.recommendations);
 
-  if (!recommendations || recommendations.length === 0) {
-    return (
-      <div>
-        <h2>Recommendations</h2>
-        <p>No recommendations yet.</p>
-      </div>
-    );
-  }
+  if (recommendations.length === 0) return <p>No recommendations yet.</p>;
 
   return (
     <div>
       <h2>Recommended Recipes</h2>
-      {recommendations.map((recipe) => (
-        <div key={recipe.id}>
-          <h3>{recipe.title}</h3>
-          <p>{recipe.description}</p>
-        </div>
-      ))}
+      <ul>
+        {recommendations.map((recipe) => (
+          <li key={recipe.id}>
+            <h3>{recipe.title}</h3>
+            <p>{recipe.ingredients}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
 
-export default RecommendationsList;
+export default RecommendationList;
