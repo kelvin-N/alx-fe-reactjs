@@ -3,11 +3,11 @@
 import { useRecipeStore } from "./recipeStore";
 
 const RecipeList = () => {
-  const { recipes } = useRecipeStore();
+  const recipes = useRecipeStore((state) => state.recipes);
 
   return (
     <div>
-      <h2>All Recipes</h2>
+      <h2>Recipes</h2>
 
       {recipes.length === 0 ? (
         <p>No recipes yet.</p>
