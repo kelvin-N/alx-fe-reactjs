@@ -5,25 +5,29 @@ const Search = () => {
   const [username, setUsername] = useState("");
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false); // ✅ Loading state
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    setError(""); // reset error
+    setError("");
+    setUserData(null);
+    setLoading(true); // ✅ Show loading
 
     const data = await fetchUserData(username);
 
+    setLoading(false); // ✅ Stop loading
+
     if (!data) {
-      setUserData(null);
-      setError("Looks like we cant find the user"); // ✅ Required message
+      setError("Looks like we cant find the user");
     } else {
       setUserData(data);
-      setError("");
     }
   };
 
   return (
     <div>
       <h2>GitHub User Search</h2>
+
       <form onSubmit={handleSearch}>
         <input
           type="text"
@@ -34,8 +38,13 @@ const Search = () => {
         <button type="submit">Search</button>
       </form>
 
+      {/* ✅ Show Loading */}
+      {loading && <p>Loading</p>}
+
+      {/* ❌ Show error if user not found */}
       {error && <p style={{ color: "red" }}>{error}</p>}
 
+      {/* ✔ Display user info when found */}
       {userData && (
         <div>
           <h3>{userData.login}</h3>
