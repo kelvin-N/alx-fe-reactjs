@@ -1,59 +1,79 @@
 import { useState } from "react";
-import { fetchUserData } from "../services/githubService";
+import { fetchUsers } from "../services/githubService";
 
 const Search = () => {
-  const [username, setUsername] = useState("");
-  const [userData, setUserData] = useState(null);
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false); // ✅ Loading state
 
   const handleSearch = async (e) => {
     e.preventDefault();
     setError("");
-    setUserData(null);
-    setLoading(true); // ✅ Show loading
+    setResults([]);
+    setLoading(true);
 
-    const data = await fetchUserData(username);
+    const users = await fetchUsers(query);
 
-    setLoading(false); // ✅ Stop loading
+    setLoading(false);
 
-    if (!data) {
+    if (users.length === 0) {
       setError("Looks like we cant find the user");
     } else {
-      setUserData(data);
+      setResults(users);
     }
   };
 
   return (
     <div>
-      <h2>GitHub User Search</h2>
+      <h2>GitHub Advanced Search</h2>
 
       <form onSubmit={handleSearch}>
         <input
           type="text"
-          placeholder="Enter GitHub username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Search GitHub users"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
         />
         <button type="submit">Search</button>
       </form>
 
-      {/* ✅ Show Loading */}
       {loading && <p>Loading</p>}
-
-      {/* ❌ Show error if user not found */}
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      {/* ✔ Display user info when found */}
-      {userData && (
-        <div>
-          <h3>{userData.login}</h3>
-          <img src={userData.avatar_url} alt={userData.login} width="100" />
-          <p>Followers: {userData.followers}</p>
-          <p>Following: {userData.following}</p>
-          <a href={userData.html_url} target="_blank" rel="noreferrer">
-            View Profile
-          </a>
+      {/* 🔥 Enhanced results — using map() */}
+      {results.length > 0 && (
+        <div style={{ marginTop: "20px" }}>
+          <h3>Results:</h3>
+
+          {results.map((user) => (
+            <div
+              key={user.id}
+              style={{
+                marginBottom: "15px",
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+              }}
+            >
+              <img
+                src={user.avatar_url}
+                width="60"
+                height="60"
+                style={{ borderRadius: "50%" }}
+              />
+              <div>
+                <p style={{ margin: 0 }}>{user.login}</p>
+                <a
+                  href={user.html_url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  View Profile
+                </a>
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </div>
