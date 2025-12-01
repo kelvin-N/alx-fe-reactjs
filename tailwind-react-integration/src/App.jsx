@@ -1,3 +1,4 @@
+// src/App.jsx
 import UserProfile from "./components/UserProfile";
 
 function App() {
