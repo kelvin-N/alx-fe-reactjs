@@ -1,12 +1,5 @@
-// src/App.jsx
-import UserProfile from "./components/UserProfile";
-
-function App() {
-  return (
-    <div>
-      <UserProfile />
-    </div>
-  );
-}
+const App = () => {
+  return <div className="p-6">Hello World</div>;
+};
 
 export default App;
