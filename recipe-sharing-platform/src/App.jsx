@@ -1,7 +1,9 @@
+import HomePage from "./components/HomePage";
+
 function App() {
   return (
-    <div className="p-10">
-      <h1 className="text-4xl font-bold text-blue-500">Hello Recipes!</h1>
+    <div className="min-h-screen bg-gray-100">
+      <HomePage />
     </div>
   );
 }
