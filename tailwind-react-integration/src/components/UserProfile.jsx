@@ -8,7 +8,9 @@ const UserProfile = () => {
         className="w-36 h-36 rounded-full mx-auto mb-4 object-cover"
       />
 
-      <h2 className="text-2xl font-bold mb-2">John Doe</h2>
+      <h2 className="text-xl text-blue-800 font-bold my-4">
+        John Doe
+      </h2>
 
       <p className="text-gray-700">
         A passionate developer who enjoys building modern and interactive interfaces.
