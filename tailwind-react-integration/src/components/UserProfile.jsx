@@ -5,7 +5,7 @@ const UserProfile = () => {
       <img
         src="https://via.placeholder.com/150"
         alt="User Avatar"
-        className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
+        className="w-36 h-36 rounded-full mx-auto mb-4 object-cover"
       />
 
       <h2 className="text-2xl font-bold mb-2">John Doe</h2>
