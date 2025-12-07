@@ -12,7 +12,7 @@ const UserProfile = () => {
         John Doe
       </h2>
 
-      <p className="text-gray-700">
+      <p className="text-gray-600 text-base">
         A passionate developer who enjoys building modern and interactive interfaces.
       </p>
 
