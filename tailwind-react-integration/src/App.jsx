@@ -1,5 +1,11 @@
-const App = () => {
-  return <div className="p-6">Hello World</div>;
-};
+import UserProfile from "./components/UserProfile";
+
+function App() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+      <UserProfile />
+    </div>
+  );
+}
 
 export default App;
