@@ -10,7 +10,8 @@ function FormikForm() {
 
   return (
     <div>
-      <h2>Formik Registration Form</h2>
+      <h2 style={{ textAlign: "center" }}>Formik Registration Form</h2>
+
       <Formik
         initialValues={{ username: "", email: "", password: "" }}
         validationSchema={validationSchema}
@@ -19,7 +20,7 @@ function FormikForm() {
           resetForm();
         }}
       >
-        <Form style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+        <Form style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "1rem" }}>
           <label>Username:</label>
           <Field name="username" type="text" />
           <ErrorMessage name="username" component="div" style={{ color: "red" }} />
@@ -32,7 +33,7 @@ function FormikForm() {
           <Field name="password" type="password" />
           <ErrorMessage name="password" component="div" style={{ color: "red" }} />
 
-          <button type="submit">Register</button>
+          <button type="submit" style={{ marginTop: "1rem" }}>Register</button>
         </Form>
       </Formik>
     </div>
