@@ -1,14 +1,14 @@
 import { useParams } from "react-router-dom";
 
-function BlogPost() {
-  const { id } = useParams();
+const BlogPost = () => {
+  const { id } = useParams(); 
 
   return (
     <div>
-      <h1>Blog Post</h1>
-      <p>Viewing post with ID: {id}</p>
+      <h2>Blog Post #{id}</h2>
+      <p>This is a dynamic blog post page. Content loads based on the post ID.</p>
     </div>
   );
-}
+};
 
 export default BlogPost;

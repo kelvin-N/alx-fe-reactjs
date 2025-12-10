@@ -1,16 +1,10 @@
-import { Link, Routes, Route, Outlet, useParams } from "react-router-dom";
-import ProfileDetails from "./ProfileDetails";
-import ProfileSettings from "./ProfileSettings";
+import { Outlet, Link } from "react-router-dom";
 
-function Profile() {
-  const { userId } = useParams(); // dynamic route parameter
-
+const Profile = () => {
   return (
     <div>
-      <h1>Profile Page</h1>
-      <p>User ID: {userId}</p>
+      <h2>User Profile</h2>
 
-      {/* Navigation inside profile */}
       <nav>
         <ul>
           <li>
@@ -22,16 +16,9 @@ function Profile() {
         </ul>
       </nav>
 
-      {/* Nested routing */}
-      <Routes>
-        <Route path="details" element={<ProfileDetails />} />
-        <Route path="settings" element={<ProfileSettings />} />
-      </Routes>
-
-      {/* OR using Outlet (also allowed) */}
-      <Outlet />
+      <Outlet /> 
     </div>
   );
-}
+};
 
 export default Profile;
