@@ -14,8 +14,9 @@ function FormikForm() {
       <Formik
         initialValues={{ username: "", email: "", password: "" }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
+        onSubmit={(values, { resetForm }) => {
           alert("Form submitted: " + JSON.stringify(values, null, 2));
+          resetForm();
         }}
       >
         <Form style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
