@@ -1,13 +1,20 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+function Login() {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    // Simulate login
+    localStorage.setItem("authenticated", "true");
+    navigate("/profile");
+  };
+
   return (
     <div>
       <h2>Login Page</h2>
-      <p>This is a fake login page for testing protected routes.</p>
-      <Link to="/">Go Home</Link>
+      <button onClick={handleLogin}>Login</button>
     </div>
   );
-};
+}
 
 export default Login;

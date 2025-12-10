@@ -1,48 +1,43 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
-import ProfileDetails from "./components/ProfileDetails";
-import ProfileSettings from "./components/ProfileSettings";
 import Login from "./components/Login";
-import BlogList from "./components/BlogList";
 import BlogPost from "./components/BlogPost";
-import Navbar from "./components/Navbar";
-
-const isAuthenticated = false; // simulate login
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Navbar />
+    <Router>
+      <div style={{ padding: "2rem", fontFamily: "Arial, sans-serif" }}>
+        <nav style={{ marginBottom: "1.5rem" }}>
+          <Link to="/" style={{ marginRight: "10px" }}>Home</Link>
+          <Link to="/profile" style={{ marginRight: "10px" }}>Profile</Link>
+          <Link to="/blog/1" style={{ marginRight: "10px" }}>Blog Post 1</Link>
+          <Link to="/blog/2">Blog Post 2</Link>
+        </nav>
 
-      <Routes>
-        {/* Home */}
-        <Route path="/" element={<Home />} />
+        <Routes>
+          <Route path="/" element={<Home />} />
 
-        {/* Protected Profile Route */}
-        <Route
-          path="/profile/*"
-          element={
-            isAuthenticated ? <Profile /> : <Navigate to="/login" />
-          }
-        >
-          <Route path="details" element={<ProfileDetails />} />
-          <Route path="settings" element={<ProfileSettings />} />
-        </Route>
+          <Route
+            path="/profile/*"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* Login */}
-        <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login />} />
 
-        {/* Blog List */}
-        <Route path="/blog" element={<BlogList />} />
+          {/* Dynamic blog posts */}
+          <Route path="/blog/:id" element={<BlogPost />} />
 
-        {/* Dynamic Blog Post */}
-        <Route path="/blog/:id" element={<BlogPost />} />
-
-        {/* 404 Page */}
-        <Route path="*" element={<h2>Page Not Found</h2>} />
-      </Routes>
-    </BrowserRouter>
+          {/* 404 fallback */}
+          <Route path="*" element={<h2>Page Not Found</h2>} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

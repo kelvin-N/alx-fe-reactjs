@@ -1,24 +1,23 @@
-import { Outlet, Link } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
+import ProfileDetails from "./ProfileDetails";
+import ProfileSettings from "./ProfileSettings";
 
-const Profile = () => {
+function Profile() {
   return (
     <div>
-      <h2>User Profile</h2>
-
+      <h2>Profile Page</h2>
       <nav>
-        <ul>
-          <li>
-            <Link to="details">Profile Details</Link>
-          </li>
-          <li>
-            <Link to="settings">Profile Settings</Link>
-          </li>
-        </ul>
+        <Link to="details" style={{ marginRight: "10px" }}>Details</Link>
+        <Link to="settings">Settings</Link>
       </nav>
 
-      <Outlet /> 
+      <Routes>
+        <Route path="details" element={<ProfileDetails />} />
+        <Route path="settings" element={<ProfileSettings />} />
+        <Route path="/" element={<p>Select a section above</p>} />
+      </Routes>
     </div>
   );
-};
+}
 
 export default Profile;
