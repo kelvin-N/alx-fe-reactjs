@@ -1,52 +1,59 @@
-// src/components/PostsComponent.jsx
-import React from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
 
-// Function to fetch posts
-const fetchPosts = async () => {
-  const response = await axios.get("https://jsonplaceholder.typicode.com/posts");
-  return response.data;
-};
-
 function PostsComponent() {
-  const { data, isLoading, isError, refetch } = useQuery("posts", fetchPosts);
+  // Fetch function
+  const fetchPosts = async () => {
+    const response = await axios.get(
+      "https://jsonplaceholder.typicode.com/posts"
+    );
+    return response.data;
+  };
 
-  if (isLoading) return <p>Loading posts...</p>;
-  if (isError) return <p>Error fetching posts!</p>;
+  // useQuery hook
+  const {
+    data,
+    error,
+    isLoading,
+    isError,
+    refetch,
+    isFetching,
+  } = useQuery("posts", fetchPosts);
 
   return (
     <div>
-      <button
-        onClick={refetch}
-        style={{
-          marginBottom: "1rem",
-          padding: "0.5rem 1rem",
-          backgroundColor: "#007BFF",
-          color: "#fff",
-          border: "none",
-          borderRadius: "4px",
-          cursor: "pointer",
-        }}
-      >
-        Refetch Posts
-      </button>
-      <ul style={{ listStyle: "none", padding: 0 }}>
-        {data.map((post) => (
-          <li
-            key={post.id}
+      <h2 style={{ marginBottom: "1rem" }}>Posts List</h2>
+
+      {/* Loading */}
+      {isLoading && <p>Loading posts...</p>}
+
+      {/* Error */}
+      {isError && <p style={{ color: "red" }}>Error: {error.message}</p>}
+
+      {/* Data Loaded */}
+      {!isLoading && !isError && (
+        <div>
+          <button
+            onClick={() => refetch()}
             style={{
+              padding: "8px 14px",
               marginBottom: "1rem",
-              padding: "1rem",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
+              cursor: "pointer",
             }}
           >
-            <strong>{post.title}</strong>
-            <p>{post.body}</p>
-          </li>
-        ))}
-      </ul>
+            {isFetching ? "Refreshing..." : "Refetch Posts"}
+          </button>
+
+          <ul>
+            {data.slice(0, 10).map((post) => (
+              <li key={post.id} style={{ marginBottom: "10px" }}>
+                <strong>{post.title}</strong>
+                <p>{post.body}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
