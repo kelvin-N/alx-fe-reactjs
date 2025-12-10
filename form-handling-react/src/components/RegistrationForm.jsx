@@ -1,28 +1,40 @@
 import { useState } from "react";
 
-function RegistrationForm() {
+const RegistrationForm = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!username || !email || !password) {
-      setError("All fields are required.");
+    const validationErrors = {};
+
+    if (!username) {
+      validationErrors.username = "Username is required";
+    }
+
+    if (!email) {
+      validationErrors.email = "Email is required";
+    }
+
+    if (!password) {
+      validationErrors.password = "Password is required";
+    }
+
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length > 0) {
       return;
     }
 
-    setError("");
-    console.log("Submitted Data:", { username, email, password });
-
-    alert("Registration successful (Controlled Components)!");
+    alert("Form submitted successfully (Controlled Component)");
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      <h2>Controlled Registration Form</h2>
 
       <div>
         <label>Username:</label>
@@ -31,41 +43,32 @@ function RegistrationForm() {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
+        {errors.username && <p style={{ color: "red" }}>{errors.username}</p>}
       </div>
 
-      <div style={{ marginTop: "10px" }}>
+      <div>
         <label>Email:</label>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
       </div>
 
-      <div style={{ marginTop: "10px" }}>
+      <div>
         <label>Password:</label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
       </div>
 
-      <button
-        type="submit"
-        style={{
-          marginTop: "20px",
-          padding: "10px 20px",
-          background: "blue",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-        }}
-      >
-        Register
-      </button>
+      <button type="submit">Submit</button>
     </form>
   );
-}
+};
 
 export default RegistrationForm;
