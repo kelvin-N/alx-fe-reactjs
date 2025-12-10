@@ -10,7 +10,7 @@ function PostsComponent() {
     return response.data;
   };
 
-  // useQuery hook
+  // useQuery with caching configuration
   const {
     data,
     error,
@@ -18,19 +18,22 @@ function PostsComponent() {
     isError,
     refetch,
     isFetching,
-  } = useQuery("posts", fetchPosts);
+  } = useQuery("posts", fetchPosts, {
+    // ----- Required by your task -----
+    cacheTime: 1000 * 60 * 5, // keep cached data for 5 minutes
+    staleTime: 1000 * 30,     // data considered fresh for 30 seconds
+    refetchOnWindowFocus: true, // auto-refetch when window refocuses
+    keepPreviousData: true,   // keep old data while fetching new
+  });
 
   return (
     <div>
       <h2 style={{ marginBottom: "1rem" }}>Posts List</h2>
 
-      {/* Loading */}
       {isLoading && <p>Loading posts...</p>}
 
-      {/* Error */}
       {isError && <p style={{ color: "red" }}>Error: {error.message}</p>}
 
-      {/* Data Loaded */}
       {!isLoading && !isError && (
         <div>
           <button
