@@ -15,8 +15,9 @@ function App() {
       }}
     >
       <h1 style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-        User Registration
+        User Registration (Formik)
       </h1>
+
       <FormikForm />
     </div>
   );
