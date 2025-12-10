@@ -1,0 +1,10 @@
+/* src/index.css */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f7;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
