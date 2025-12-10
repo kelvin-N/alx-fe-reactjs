@@ -11,7 +11,6 @@ function FormikForm() {
   return (
     <div>
       <h2>Formik Registration Form</h2>
-
       <Formik
         initialValues={{ username: "", email: "", password: "" }}
         validationSchema={validationSchema}
