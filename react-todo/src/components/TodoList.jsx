@@ -1,25 +1,19 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-const TodoList = () => {
+export default function TodoList() {
   const [todos, setTodos] = useState([
-    { id: 1, text: "Learn React Testing", completed: false },
+    { id: 1, text: "Learn React", completed: false },
     { id: 2, text: "Build a Todo App", completed: true },
+    { id: 3, text: "Write Tests", completed: false }
   ]);
 
-  const [newTodo, setNewTodo] = useState("");
+  const [inputValue, setInputValue] = useState("");
 
-  const handleAddTodo = (e) => {
-    e.preventDefault();
-    if (!newTodo.trim()) return;
-
-    const todo = {
-      id: Date.now(),
-      text: newTodo.trim(),
-      completed: false,
-    };
-
-    setTodos([...todos, todo]);
-    setNewTodo("");
+  const addTodo = () => {
+    if (!inputValue.trim()) return;
+    const newTodo = { id: Date.now(), text: inputValue, completed: false };
+    setTodos([...todos, newTodo]);
+    setInputValue("");
   };
 
   const toggleTodo = (id) => {
@@ -36,47 +30,30 @@ const TodoList = () => {
 
   return (
     <div>
-      <h2>Todo List</h2>
-
-      <form onSubmit={handleAddTodo}>
-        <input
-          aria-label="New Todo Input"
-          value={newTodo}
-          onChange={(e) => setNewTodo(e.target.value)}
-        />
-        <button type="submit">Add Todo</button>
-      </form>
+      <input
+        placeholder="New todo"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        data-testid="todo-input"
+      />
+      <button onClick={addTodo}>Add Todo</button>
 
       <ul>
         {todos.map((todo) => (
           <li key={todo.id}>
             <span
-              data-testid="todo-text"
+              onClick={() => toggleTodo(todo.id)}
               style={{
                 textDecoration: todo.completed ? "line-through" : "none",
+                cursor: "pointer"
               }}
             >
               {todo.text}
             </span>
-
-            <button
-              onClick={() => toggleTodo(todo.id)}
-              aria-label="toggle-todo"
-            >
-              Toggle
-            </button>
-
-            <button
-              onClick={() => deleteTodo(todo.id)}
-              aria-label="delete-todo"
-            >
-              Delete
-            </button>
+            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
           </li>
         ))}
       </ul>
     </div>
   );
-};
-
-export default TodoList;
+}
