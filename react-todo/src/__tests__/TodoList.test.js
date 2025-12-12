@@ -1,45 +1,44 @@
-import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import TodoList from "../components/TodoList.jsx";
+import TodoList from "../components/TodoList";
 
 describe("TodoList Component", () => {
   test("renders initial todos", () => {
     render(<TodoList />);
-    expect(screen.getByText("Learn React")).toBeInTheDocument();
+
+    expect(screen.getByText("Learn React Testing")).toBeInTheDocument();
     expect(screen.getByText("Build a Todo App")).toBeInTheDocument();
-    expect(screen.getByText("Write Tests")).toBeInTheDocument();
   });
 
   test("adds a new todo", () => {
     render(<TodoList />);
-    const input = screen.getByPlaceholderText("Add a todo");
-    const addButton = screen.getByText("Add");
+
+    const input = screen.getByLabelText("New Todo Input");
+    const button = screen.getByText("Add Todo");
 
     fireEvent.change(input, { target: { value: "New Task" } });
-    fireEvent.click(addButton);
+    fireEvent.click(button);
 
     expect(screen.getByText("New Task")).toBeInTheDocument();
   });
 
-  test("toggles a todo's completed state", () => {
+  test("toggles a todo completion", () => {
     render(<TodoList />);
-    const todo = screen.getByText("Learn React");
 
-    expect(todo).not.toHaveStyle("text-decoration: line-through");
+    const item = screen.getByText("Learn React Testing");
+    const toggleBtn = screen.getAllByLabelText("toggle-todo")[0];
 
-    fireEvent.click(todo);
+    fireEvent.click(toggleBtn);
 
-    expect(todo).toHaveStyle("text-decoration: line-through");
+    expect(item).toHaveStyle("text-decoration: line-through");
   });
 
   test("deletes a todo", () => {
     render(<TodoList />);
-    const todo = screen.getByText("Write Tests");
-    const deleteBtn = todo.nextSibling;
+
+    const deleteBtn = screen.getAllByLabelText("delete-todo")[0];
 
     fireEvent.click(deleteBtn);
 
-    expect(screen.queryByText("Write Tests")).toBeNull();
+    expect(screen.queryByText("Learn React Testing")).not.toBeInTheDocument();
   });
 });
