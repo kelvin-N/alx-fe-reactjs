@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import AddTodoForm from "./AddTodoForm.jsx";
 
 export default function TodoList() {
   const [todos, setTodos] = useState([
@@ -8,54 +9,38 @@ export default function TodoList() {
   ]);
 
   const addTodo = (text) => {
-    if (!text.trim()) return;
     const newTodo = { id: Date.now(), text, completed: false };
     setTodos((prev) => [...prev, newTodo]);
   };
 
   const toggleTodo = (id) => {
-    setTodos((prev) =>
-      prev.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
+    setTodos((prev) => prev.map(t => (t.id === id ? { ...t, completed: !t.completed } : t)));
   };
 
   const deleteTodo = (id) => {
-    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+    setTodos((prev) => prev.filter(t => t.id !== id));
   };
 
   return (
     <div data-testid="todo-list-wrapper">
-      <input
-        placeholder="New todo"
-        aria-label="new-todo-input"
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            addTodo(e.target.value);
-            e.target.value = "";
-          }
-        }}
-      />
+      <AddTodoForm addTodo={addTodo} />
 
-      <ul>
+      <ul style={{ paddingLeft: 0, listStyle: "none" }}>
         {todos.map((todo) => (
-          <li key={todo.id} data-testid="todo-item">
+          <li key={todo.id} style={{ display: "flex", alignItems: "center", gap: 12, padding: "8px 0" }} data-testid="todo-item">
             <span
               data-testid={`todo-text-${todo.id}`}
               onClick={() => toggleTodo(todo.id)}
               style={{
                 textDecoration: todo.completed ? "line-through" : "none",
-                cursor: "pointer"
+                cursor: "pointer",
+                flex: 1
               }}
             >
               {todo.text}
             </span>
 
-            <button
-              data-testid={`delete-btn-${todo.id}`}
-              onClick={() => deleteTodo(todo.id)}
-            >
+            <button data-testid={`delete-btn-${todo.id}`} onClick={() => deleteTodo(todo.id)} style={{ padding: "6px 10px" }}>
               Delete
             </button>
           </li>
