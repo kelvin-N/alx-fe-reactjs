@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import AddTodoForm from "./AddTodoForm.jsx";
 
 export default function TodoList() {
   const [todos, setTodos] = useState([
@@ -9,29 +8,41 @@ export default function TodoList() {
   ]);
 
   const addTodo = (text) => {
+    if (!text.trim()) return;
     const newTodo = { id: Date.now(), text, completed: false };
-    setTodos([...todos, newTodo]);
+    setTodos((prev) => [...prev, newTodo]);
   };
 
   const toggleTodo = (id) => {
-    setTodos(
-      todos.map(todo =>
+    setTodos((prev) =>
+      prev.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
   };
 
   const deleteTodo = (id) => {
-    setTodos(todos.filter(todo => todo.id !== id));
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
 
   return (
-    <div>
-      <AddTodoForm addTodo={addTodo} />
+    <div data-testid="todo-list-wrapper">
+      <input
+        placeholder="New todo"
+        aria-label="new-todo-input"
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            addTodo(e.target.value);
+            e.target.value = "";
+          }
+        }}
+      />
+
       <ul>
-        {todos.map(todo => (
-          <li key={todo.id}>
+        {todos.map((todo) => (
+          <li key={todo.id} data-testid="todo-item">
             <span
+              data-testid={`todo-text-${todo.id}`}
               onClick={() => toggleTodo(todo.id)}
               style={{
                 textDecoration: todo.completed ? "line-through" : "none",
@@ -40,7 +51,13 @@ export default function TodoList() {
             >
               {todo.text}
             </span>
-            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+
+            <button
+              data-testid={`delete-btn-${todo.id}`}
+              onClick={() => deleteTodo(todo.id)}
+            >
+              Delete
+            </button>
           </li>
         ))}
       </ul>
