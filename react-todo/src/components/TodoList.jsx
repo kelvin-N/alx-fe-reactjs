@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import AddTodoForm from "./AddTodoForm.jsx";
 
 export default function TodoList() {
   const [todos, setTodos] = useState([
@@ -26,16 +27,7 @@ export default function TodoList() {
 
   return (
     <div>
-      <input
-        placeholder="New todo"
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            addTodo(e.target.value);
-            e.target.value = "";
-          }
-        }}
-      />
-
+      <AddTodoForm addTodo={addTodo} />
       <ul>
         {todos.map(todo => (
           <li key={todo.id}>
@@ -48,7 +40,6 @@ export default function TodoList() {
             >
               {todo.text}
             </span>
-
             <button onClick={() => deleteTodo(todo.id)}>Delete</button>
           </li>
         ))}
