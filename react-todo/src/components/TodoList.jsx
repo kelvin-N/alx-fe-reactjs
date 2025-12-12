@@ -9,28 +9,28 @@ export default function TodoList() {
   ]);
 
   const addTodo = (text) => {
-    const newTodo = { id: Date.now(), text, completed: false };
-    setTodos([...todos, newTodo]);
+    setTodos([...todos, { id: Date.now(), text, completed: false }]);
   };
 
   const toggleTodo = (id) => {
     setTodos(
-      todos.map(todo =>
+      todos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
   };
 
   const deleteTodo = (id) => {
-    setTodos(todos.filter(todo => todo.id !== id));
+    setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   return (
     <div>
       <AddTodoForm addTodo={addTodo} />
+
       <ul>
-        {todos.map(todo => (
-          <li key={todo.id}>
+        {todos.map((todo) => (
+          <li key={todo.id} data-testid={`todo-${todo.id}`}>
             <span
               onClick={() => toggleTodo(todo.id)}
               style={{
@@ -40,10 +40,8 @@ export default function TodoList() {
             >
               {todo.text}
             </span>
-            <button
-              data-testid={`delete-btn-${todo.id}`}
-              onClick={() => deleteTodo(todo.id)}
-            >
+
+            <button data-testid={`delete-btn-${todo.id}`} onClick={() => deleteTodo(todo.id)}>
               Delete
             </button>
           </li>
