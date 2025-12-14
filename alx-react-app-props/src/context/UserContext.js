@@ -1,11 +1,11 @@
 import { createContext, useState } from "react";
 
-export const UserContext = createContext(null);
+export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState({
     name: "Kelvin",
-    role: "Student",
+    email: "kelvin@example.com",
   });
 
   return (
