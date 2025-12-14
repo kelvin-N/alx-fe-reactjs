@@ -1,16 +1,7 @@
-import { useContext } from "react";
-import { UserContext } from "../context/UserContext";
+import UserInfo from "./UserInfo";
 
-const UserProfile = () => {
-  const { user } = useContext(UserContext);
+function ProfilePage() {
+  return <UserInfo />;
+}
 
-  return (
-    <div>
-      <h2>User Profile</h2>
-      <p>Name: {user.name}</p>
-      <p>Email: {user.email}</p>
-    </div>
-  );
-};
-
-export default UserProfile;
+export default ProfilePage;
