@@ -1,54 +1,42 @@
-import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import TodoList from "../components/TodoList";
 
-// eslint-disable-next-line no-undef
-describe("TodoList Component", () => {
-  // eslint-disable-next-line no-undef
-  test("renders initial todos", () => {
-    render(<TodoList />);
-    // eslint-disable-next-line no-undef
-    expect(screen.getByText("Learn React")).toBeInTheDocument();
-    // eslint-disable-next-line no-undef
-    expect(screen.getByText("Build a project")).toBeInTheDocument();
-  });
+test("renders initial todos", () => {
+  render(<TodoList />);
+  expect(screen.getByText("Learn React")).toBeInTheDocument();
+  expect(screen.getByText("Build a project")).toBeInTheDocument();
+});
 
-  // eslint-disable-next-line no-undef
-  test("adds a new todo", () => {
-    render(<TodoList />);
-    const input = screen.getByTestId("todo-input");
-    const button = screen.getByText("Add");
+test("adds a new todo", () => {
+  render(<TodoList />);
 
-    fireEvent.change(input, { target: { value: "New Task" } });
-    fireEvent.click(button);
+  const input = screen.getByTestId("todo-input");
+  const addButton = screen.getByText("Add");
 
-    // eslint-disable-next-line no-undef
-    expect(screen.getByText("New Task")).toBeInTheDocument();
-  });
+  fireEvent.change(input, { target: { value: "New Task" } });
+  fireEvent.click(addButton);
 
-  // eslint-disable-next-line no-undef
-  test("toggles a todo's completion status", () => {
-    render(<TodoList />);
-    const todoItem = screen.getByText("Learn React");
+  expect(screen.getByText("New Task")).toBeInTheDocument();
+});
 
-    fireEvent.click(todoItem);
-    // eslint-disable-next-line no-undef
-    expect(todoItem).toHaveClass("completed");
+test("toggles a todo completion", () => {
+  render(<TodoList />);
 
-    fireEvent.click(todoItem);
-    // eslint-disable-next-line no-undef
-    expect(todoItem).not.toHaveClass("completed");
-  });
+  const todo = screen.getByText("Learn React");
+  fireEvent.click(todo);
+  expect(todo).toHaveClass("completed");
 
-  // eslint-disable-next-line no-undef
-  test("deletes a todo", () => {
-    render(<TodoList />);
-    const todoItem = screen.getByText("Learn React");
-    const deleteButton = todoItem.nextSibling;
+  fireEvent.click(todo);
+  expect(todo).not.toHaveClass("completed");
+});
 
-    fireEvent.click(deleteButton);
+test("deletes a todo", () => {
+  render(<TodoList />);
 
-    // eslint-disable-next-line no-undef
-    expect(todoItem).not.toBeInTheDocument();
-  });
+  const todo = screen.getByText("Learn React");
+  const deleteButton = todo.nextSibling;
+
+  fireEvent.click(deleteButton);
+  expect(todo).not.toBeInTheDocument();
 });
