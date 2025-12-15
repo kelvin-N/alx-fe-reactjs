@@ -1,5 +1,5 @@
 import React from "react";
-import WelcomeMessage from "./components/WelcomeMessage";
+import WelcomeMessage from "./components/WelcomeMessage"; // Correct import
 
 function App() {
   return (
