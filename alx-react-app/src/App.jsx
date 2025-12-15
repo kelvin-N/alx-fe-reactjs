@@ -4,14 +4,14 @@ import UserProfile from "./components/UserProfile";
 function App() {
   const user = {
     name: "Kelvin N.",
-    email: "kelvin@example.com",
-    role: "Student",
+    age: 20,
+    bio: "I am learning React at ALX.",
   };
 
   return (
     <div>
       <h1>Welcome to the User Dashboard</h1>
-      <UserProfile name={user.name} email={user.email} role={user.role} />
+      <UserProfile name={user.name} age={user.age} bio={user.bio} />
     </div>
   );
 }

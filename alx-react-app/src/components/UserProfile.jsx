@@ -1,12 +1,12 @@
 import React from "react";
 
-const UserProfile = ({ name, email, role }) => {
+const UserProfile = (props) => {
   return (
     <div>
       <h2>User Profile</h2>
-      <p>Name: {name}</p>
-      <p>Email: {email}</p>
-      <p>Role: {role}</p>
+      <p>Name: {props.name}</p>
+      <p>Age: {props.age}</p>
+      <p>Bio: {props.bio}</p>
     </div>
   );
 };
