@@ -1,14 +1,17 @@
 import React from "react";
-import Header from "./components/Header";
-import MainContent from "./components/MainContent";
-import Footer from "./components/Footer";
+import UserProfile from "./components/UserProfile";
 
 function App() {
+  const user = {
+    name: "Kelvin N.",
+    email: "kelvin@example.com",
+    role: "Student",
+  };
+
   return (
     <div>
-      <Header />
-      <MainContent />
-      <Footer />
+      <h1>Welcome to the User Dashboard</h1>
+      <UserProfile name={user.name} email={user.email} role={user.role} />
     </div>
   );
 }
