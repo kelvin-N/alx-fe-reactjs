@@ -3,8 +3,8 @@ import React from "react";
 const MainContent = () => {
   return (
     <main>
-      <h2>Conference Schedule</h2>
-      <p>Check out the sessions, workshops, and speakers for TechCon 2024.</p>
+      <h2>Explore Your Favorite Cities</h2>
+      <p>Discover popular destinations, culture, and attractions around the world.</p>
     </main>
   );
 };
